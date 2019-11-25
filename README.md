@@ -45,10 +45,10 @@
 - database setup depend on module versions
  
 ##### Note: 
-        - vendor/magento/framework/Module/ModueList/Loader.php 
-        - The static list of module is stored in app/etc/config.php
-        - Sequence is use for events, plugins and preferences and layouts.
-        - if your module owerwrite other module layout but it will be load first then other module will overwrite your modules layout.
+- vendor/magento/framework/Module/ModueList/Loader.php 
+- The static list of module is stored in app/etc/config.php
+- Sequence is use for events, plugins and preferences and layouts.
+- if your module owerwrite other module layout but it will be load first then other module will overwrite your modules layout.
 
 ##### Ex:
 
