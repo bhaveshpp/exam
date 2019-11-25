@@ -7,9 +7,10 @@
 - adminhtml
 - frontend
 - base
-- webapi_rest
-- webapi_soap
 - cron
+- webapi
+    - webapi_rest
+    - webapi_soap
 
 ### Nessesory files
 - registration.php
@@ -19,7 +20,7 @@
 ### Module Location
 - app/code/Namespace/Module
 - vendor/vendor-name/module-name
-- anywhere
+- anywhere in project
 
 #### vendor/vendor-name/module-name
 - installed and Update using composer
@@ -37,18 +38,23 @@
 #### registration.php
 - app/etc/NonComposerComponentRegistration.php included by magento composer autoloader file
 - Magento/Framework/Component/ComponentRegistrar class is use for register
-- next call to etc/module.xml
+- next call to etc/module.
+
+```
+<?php
+use Magento\Framework\Component\ComponentRegistrar;
+ComponentRegistrar::register(
+    ComponentRegistrar::MODULE,
+    'Namespace_Modulename',
+    __DIR__
+);
+
+```
 
 #### etc/module.xml
 - Specify setup version 
 - Contain Loading sequence  
 - database setup depend on module versions
- 
-##### Note: 
-- vendor/magento/framework/Module/ModueList/Loader.php 
-- The static list of module is stored in app/etc/config.php
-- Sequence is use for events, plugins and preferences and layouts.
-- if your module owerwrite other module layout but it will be load first then other module will overwrite your modules layout.
 
 ##### Ex:
 
@@ -66,7 +72,32 @@
 </config>
 
 ```
+ 
+[11252019]
+
+##### Note: 
+- Magento 2 All module files are contained within one directory. 
+- vendor/magento/framework/Module/ModueList/Loader.php 
+- The static list of module is stored in app/etc/config.php
+- Sequence is use for events, plugins and preferences and layouts.
+- if your module owerwrite other module layout but it will be load first then other module will overwrite your modules layout.
+- vendor/magento/magento2-base/setup/src/Magento/Setup/Console/Command/AbstractModuleManageCommand.php command used for module enable
+
+https://belvg.com/blog/magento-2-module-based-architecture.html
+
+Modules in Magento 2 are implemented by means of MVVM architecture.
 
 
+## Magento Directory Architechture
 
+- Magento 2 core file found in vendor/magento or app/code/Magento
+- Supportin css and js file found in lib 
 
+#### /Api 
+
+- this folder stores contract for module that contain specific action.
+- the action can be used from different location in application.
+
+#### /Api/Data
+
+- this folder contain interfaces
