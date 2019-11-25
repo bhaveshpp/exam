@@ -1,3 +1,7 @@
+[Reference]
+https://swiftotter.com/
+CERTIFIED PROFESSIONAL DEVELOPER EXAM PREPARATION EBOOK
+- JOSEPH MAXWELL
 [11232019]
 # Magento 2 Architechture
 
@@ -93,11 +97,42 @@ Modules in Magento 2 are implemented by means of MVVM architecture.
 - Magento 2 core file found in vendor/magento or app/code/Magento
 - Supportin css and js file found in lib 
 
-#### /Api 
+#### /Api: Service Contracts
 
 - this folder stores contract for module that contain specific action.
 - the action can be used from different location in application.
 
-#### /Api/Data
+#### /Api/Data: Data service contract
 
-- this folder contain interfaces
+- this folder contain interfaces that represent data.
+- concrete implementations of these interfaces usualy do getter and setter for data.
+
+#### /Block: view Models
+
+- Block perform or provide bussiness logic for templates.
+- in MVVM methodology Block are View-model.
+- inheriting template block is makes testing and reusablility difficult.
+- while view model live in /Block it provide bussiness logic of block and not rendering functionality.
+- block is responsible for rendering output and view model handels logic.
+
+#### ex: 
+- to create block with view model
+
+```
+<block name="demo.block" template="Bhaveshpp_Block::post.phtml">
+    <arguments>
+        <argument name="viewModel" xsi:type="object">
+            Bhaveshpp\Block\Post
+        </argument>
+    </arguments>
+</block>
+
+```
+
+#### /Console: Console Commands
+
+- when running php bin/magento all commands are listed
+- the code of command is define here
+
+##### ex: vendor/magento/module-media-storage/Console/Command/ImagesResizeCommand.php
+> php bin/magento catalog:images:resize
