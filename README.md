@@ -147,9 +147,81 @@ Modules in Magento 2 are implemented by means of MVVM architecture.
 
 ##### ex:
 > /etc/di.xml
+
 > /etc/frontend/di.xml
+
 > /etc/adminhtml/di.xml
 
 - Some files are placed wihtin target area ex: routes.xml, sections.xml
 - Some file have global scoap ex: di.xml.
+
 Note: To minimize the load on server, developers should specify which action (or request) updates which customer data section in etc/section.xml.
+
+#### /Helper: used for small reuseable code
+- this folder hase no longer nessesory.
+- how ever magento core folder are use this folder.
+- Every method should be capable of being declared static (whether or not it is).
+
+#### /i18n: contain translation csv files (internationalization)
+- modules all translation related csv files are located here
+- csv file contain two columns: From, To
+
+#### /Model: Data Hendeling and Structures
+- in MVVM this folder contains all the Models.
+- here all the database structure related file.
+
+#### /Model/ResourceModel: database interactions
+- it represent how data are save and represent.
+- any direct database interaction should happen here.
+
+##### ex: Product resource model [What is a resource model](https://magento.stackexchange.com/questions/190025/magento-2-what-is-a-resource-model-and-how-can-i-use-it "magento.stackexchange.com")
+- you can get product, category, order colllection data.
+
+```
+...
+
+public function __construct(
+    \Magento\Backend\Block\Template\Context $context,        
+    \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,      
+    \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoriesCollection,  
+    \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
+    array $data = []
+)
+{    
+    $this->_productCollectionFactory = $productCollectionFactory;   
+    $this->_categoriesCollection = $categoriesCollection;     
+    $this->orderCollectionFactory = $orderCollectionFactory;
+    parent::__construct($context, $data);
+}
+/*
+* Product collection Data
+*/
+public function getProductCollection()
+{
+    $collection = $this->_productCollectionFactory->create();
+    $collection->addAttributeToSelect('*');
+    return $collection;
+}
+/*
+* Category collection Data
+*/
+public function getCategoryCollection()
+{
+    $collection = $this->_categoriesCollection->create();
+    $collection->addAttributeToSelect('*');
+    return $collection;
+}
+/*
+* Order collection Data
+*/
+public function getOrderCollection()
+{
+    $order = $orders = $this->orderCollectionFactory->create();    
+    $order->addAttributeToSort('created_at', 'desc');
+    return $order;
+}
+...
+
+```
+
+
