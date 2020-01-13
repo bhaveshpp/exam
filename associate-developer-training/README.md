@@ -1,11 +1,76 @@
 ## 1 Magento Architecture and Customization Techniques
 
 ### 1.1 Describe the Magento module-based architecture
-- Describe module architecture. What are the significant steps to add a new module? What are the different Composer package types? When would you place a module in the app/code folder versus another location?
+- Describe module architecture. What are the significant steps to add a new module? 
+    - registration.php
+        - Magento\Framework\Component\ComponentRegistrar::register();
+    - module.xml, theme.xml, language.xml
+        - version and name declaratioin
+    - Api
+        - data / service contracts
+        - geter and seter interface
+    - Block
+        - provide logic to render templates
+        - define in layoutes
+        - MVVM ViewModel
+        - contain view-model and block
+    - Contorller
+        - Handel Requests.
+        - adminhtml, frontend controler.
+    - Helper
+        - contain common functionality.
+    - Model
+        - contain database interaction
+        - model, resourceModel, collection
+    - etc
+        - contain configuration .xml files
+        - di.xml, routes.xml, system.xml, menu.xml, config.xml, dbSchema.xml, etc
+    - view
+        - contain the templates, layouts, page_layout, web / knockout js templates ,js ,css , etc
+        - also contain the UiComponent layout declaration .xml files
+        - require-config.js file that define the js
+    - console
+        - declaration of the cli commands
+    - Plugin
+        - contain the plugin action classis
+    - i18n
+        - contain .csv files of language translation.
+    - Observer
+        - containthe event observer classis that declare in etc/event.xml
+    - cron 
+        - contain shedule job classis that declared in the etc/crontab.xml 
+    - UI/Component
+        - contain ui_component data provider and modifier
+    - Setup 
+        - containthe statment that generate/Modify database table.
+        - installSchema.php generate tables.
+        - installData.php update default magento Existiing Tables ex: add record,column, etc
+        - Recurring.php after all modification done this will run
+        - when module version are change then this files will be executed
+        - updateSchema.php ,updateData.php
+
+- What are the different Composer package types? 
+    - metapackages
+    - module
+    - theme
+    - language packages
+
+- When would you place a module in the app/code folder versus another location?
+    - app/code/Vendor/Module
+        - module local development
+    - vendor/vendor-name/module-name
+        - composer packages
+        - uncatchable
 
 ### 1.2 Describe the Magento directory structure
-Describe the Magento directory structure. What are the naming conventions, and how are namespaces established?
-How can you identify the files responsible for some functionality?
+- Describe the Magento directory structure. 
+- What are the naming conventions, and how are namespaces established?
+    - Namespace_Modulename
+    - ex
+        Magento\Framework\Viwe\Element\Template
+        vendor/magento/framework/view/element/Template.php
+- How can you identify the files responsible for some functionality?
+
 
 ### 1.3 Utilize configuration and configuration variables scope
 Determine how to use configuration files in Magento. Which configuration files are important in the development
