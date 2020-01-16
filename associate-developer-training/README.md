@@ -70,11 +70,32 @@
         Magento\Framework\Viwe\Element\Template
         vendor/magento/framework/view/element/Template.php
 - How can you identify the files responsible for some functionality?
-
+    - find controller 
+        - copy the first keyword after the base url and find in project
 
 ### 1.3 Utilize configuration and configuration variables scope
-Determine how to use configuration files in Magento. Which configuration files are important in the development
-cycle?
+- Determine how to use configuration files in Magento. 
+    - di.xml - for dependency injection
+    - system.xml - for generate system config fields
+    - routes.xml - for create routes
+    - config.xml - for set default config value
+    - module.xml - for module declaration and dependency sequence
+    - crontab.xml - for setting sheduled tasks
+    - event.xml - for register the events
+    - acl.xml - for add the module resource to resource tree.
+    - widget.xml - for storing widget settings
+    - indexer.xml - declare new index
+    - mview - track database changes
+    - product_type.xml - declare new product type
+    - view.xml - theme settings
+    - webapi.xml - service declaration
+    - product_option.xml - 
+
+- Which configuration files are important in the development cycle?
+    - di.xml
+    - config.php
+    - env.php
+
 Describe development in the context of website and store scopes. How do you identify the configuration scope for a
 given variable? How do native Magento scopes (for example, price or inventory) affect development and decision-making
 processes?

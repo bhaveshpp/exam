@@ -59,5 +59,35 @@ call save method of resource model
 
 - simple product is basic product not contain any variModule containant 
 
+- php bin/magento sempledata:deploy
 
+
+All command list
+
+- php bin/magento setup:upgrade
+- php bin/magento setup:di:compile
+- php bin/magento setup:static-content:deploy -f
+    - php bin/magento setup:static-content:deploy --theme Codazon/unlimited_fashion_accessores en_US en_GB fr_FR -f
+    - php bin/magento setup:static-content:deploy --theme Codazon/unlimited_fashion_accessores -f
+    - php bin/magento setup:static-content:deploy en_US en_GB fr_FR -f
+- php bin/magento indexer:reindex
+- php bin/magento indexer:info
+- php bin/magento cache:clean
+- php bin/magento cache:flush
+- php bin/magento cache:status
+- php bin/magento cache:enable
+- php bin/magento cache:enable eav config
+- php bin/magento cache:disable
+- php bin/magento info:adminuri
+- php bin/magento admin:user:create
+- php bin/magento admin:user:unlock
+- php bin/magento dev:template:hints:enable
+- php bin/magento dev:template:hints:disable
+- php bin/magento sampledata:deploy
+- php bin/magento maintenance:enable
+    - php bin/magento maintenance:enable --ip 192.168.0.173
+- php bin/magento maintenance:disable
+- php bin/magento module:disable
+- php bin/magento module:enable
+- php bin/magento 
 
