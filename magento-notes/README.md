@@ -89,5 +89,7 @@ All command list
 - php bin/magento maintenance:disable
 - php bin/magento module:disable
 - php bin/magento module:enable
-- php bin/magento 
+- php bin/magento deploy:mode:set developer
+- php bin/magento config:show
+- php bin/magento config:set
 

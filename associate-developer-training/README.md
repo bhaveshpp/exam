@@ -96,30 +96,99 @@
     - config.php
     - env.php
 
-Describe development in the context of website and store scopes. How do you identify the configuration scope for a
-given variable? How do native Magento scopes (for example, price or inventory) affect development and decision-making
-processes?
-Demonstrate an ability to add different values for different scopes. How can you fetch a system configuration value
-programmatically? How can you override system configuration values for a given store using XML configuration?
+- Describe development in the context of website and store scopes.
+    - How do you identify the configuration scope for a given variable?
+        - from the top-left cornne we will find the socpe dropdown in the store configuration settings.
+        - select the specific store and save the store wise config.
 
-### 1.4 Demonstrate how to use dependency injection (DI)
-Demonstrate the ability to use the dependency injection concept in Magento development. How are objects
-realized in code? Why is it important to have a centralized object creation process?
-Identify how to use DI configuration files for customizing Magento. How can you override a native class, inject your
-class into another object, and use other techniques available in di.xml (for example, virtualTypes)?
-Given a scenario, determine how to obtain an object using the ObjectManager object. How would you obtain a class
-instance from different places in the code?
+    - How do native Magento scopes (for example, price or inventory) affect development and decision-making processes?
+        - store -> configuration -> catalog -> price -> catalog price scop. 
+        - set it to global or website
+
+    - Demonstrate an ability to add different values for different scopes. 
+        - from the top-left corner set the scop to storeview
+        - set the value using command
+            - php bin/magento config:set
+            - php bin/magento config:sensitive:set   
+            ex : sudo /opt/lampp/bin/php bin/magento config:set web/unsecure/base_url http://192.168.0.172/magento/demo1/
+    - How can you fetch a system configuration value programmatically? 
+            - const SCOPE_STORES = 'stores';
+            - const SCOPE_WEBSITES = 'websites';
+            - const SCOPE_STORE = 'store';
+            - const SCOPE_GROUP = 'group';
+            - const SCOPE_WEBSITE = 'website';
+            - $this->scopeConfig->getValue($field,\Magento\Store\Model\ScopeInterface::SCOPE_STORES);
+            - php bin/magento config:show
+    - How can you override system configuration values for a given store using XML configuration?
+        - there is tree structure where all the leef node depend on his parent 
+        - Website
+          |_Store
+             |_Store view
+        - here for store view store and website is parant.
+        - if there is parant value is available for the store view then tik uew website or use default settings
+        $_ENV['CONFIG__DEFAULT__CATALOG__SEARCH__ELASTICSEARCH_SERVER_HOSTNAME'] = 'http://search.example.com';
+
+### 1.4 Demonstrate how to use dependency injection (DI) [Object Manager & di]
+- Demonstrate the ability to use the dependency injection concept in Magento development.
+    - in magento one class can use the method of another class by injecting it.
+    - we can inject dependency using the constructor argument or by object manager.
+
+- How are objects realized in code?
+    - by using object manager or dependency injection [di.xml]
+    - $objectManager->create();
+    - declare di.xml in etc/[area]/di.xml or etc/di.xml in module and inject class.
+
+- Why is it important to have a centralized object creation process?
+    - application become more flaxible and easy to test
+    - use class using object manager any where. $objectManager->get('class');
+    - inject code inside the existing code.
+    - inject class dependency in constructor using di.xml
+
+- Identify how to use DI configuration files for customizing Magento. 
+    - preference
+    - plugins
+    - virtual type
+    - constructor argument
+
+- How can you override a native class, inject your class into another object, and use other techniques available in di.xml (for example, virtualTypes)?
+    - override a native class
+        - by using preference
+    - inject your class into another object
+        - by using type > arguments > argument node
+    - other 
+        - plugins, virtual type etc
+
+- Given a scenario, determine how to obtain an object using the ObjectManager object.
+- How would you obtain a class instance from different places in the code?
+```
+    $objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+    $appState = $objectManager->get('\Magento\Framework\App\State');
+    $appState->setAreaCode('frontend');
+    $customerObj = $objectManager->create('Magento\Customer\Model\Customer')->getCollection();
+```
+
 
 ### 1.5 Demonstrate ability to use plugins
-Demonstrate an understanding of plugins. How are plugins used in core code? How can they be used for
-customizations?
+- Demonstrate an understanding of plugins. 
+    - before, after and around plugin
+    - before plugin
+        - can change input argument
+    - after plugin
+        - can change return value
+    - around plugin
+        - can change input argument and also return value
+
+- How are plugins used in core code? 
+    - 
+- How can they be used for customizations?
+    - 
+
 
 ### 1.6 Configure event observers and scheduled jobs
 Demonstrate how to create a customization using an event observer. How are observers registered? How are they
 scoped for frontend or backend? How are automatic events created, and how should they be used? How are scheduled
 jobs configured?
-Topics and Objectives
-Magento 2 Certified Associate Developer Exam Study Guide © 2019 Magento, Inc. 3
+
 
 ### 1.7 Utilize the CLI
 Describe the usage of bin/magento commands in the development cycle. Which commands are available? How
